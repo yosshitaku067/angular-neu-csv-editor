@@ -1,0 +1,15 @@
+<div class="app-modal">
+  <div class="app-modal-body">
+    <div class="contents">
+      <h1>Edit</h1>
+      <div *ngFor="let data of datas">
+        <p>{{ data.label }}: <input type="text" [(ngModel)]="data.value" /></p>
+      </div>
+      <div class="toolbar">
+        <button class="button primary" (click)="save()">Save</button>
+        <button class="button warn" (click)="close()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="app-modal-background"></div>

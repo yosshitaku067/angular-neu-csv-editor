@@ -1,0 +1,45 @@
+<main class="container">
+  <div class="segment">
+    <h1>{{ title }}</h1>
+  </div>
+
+  <div class="toolbar">
+    <button class="button primary" (click)="import()">Import</button>
+    <button class="button primary" (click)="export()">Export</button>
+    <button class="button secondary" (click)="addRow()">Add Row</button>
+    <button class="button secondary" (click)="addColumn()">Add Column</button>
+    <button class="button danger" (click)="clear()">Clear</button>
+    <button class="button warn" (click)="dummy()">Dummy Data</button>
+  </div>
+
+  <div class="table-area">
+    <table class="example-table">
+      <thead>
+        <tr class="row header" cdkDropList (cdkDropListDropped)="dropX($event)" cdkDropListOrientation="horizontal">
+          <th>No</th>
+          <th>Control</th>
+          <th cdkDrag cdkDragLockAxis="x" cdkDrag *ngFor="let h of csvHeader; let i = index">
+            {{ h }}
+            <button class="button danger" (click)="onDeleteColumn(i)">×</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody cdkDropList (cdkDropListDropped)="dropY($event)">
+        <tr class="row" *ngFor="let line of csvData; let i = index" cdkDrag cdkDragLockAxis="y">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <button class="button primary" (click)="onEdit('custom-modal-1', i)">Edit</button>
+            <button class="button danger" (click)="onDeleteRow(i)">Delete</button>
+          </td>
+          <td *ngFor="let d of line; let j = index">
+            {{ d }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<app-modal id="custom-modal-1"></app-modal>
+<a id="csv-donwload" class="no-display"></a>
+<input class="no-display" type="file" (change)="onChangeFileInput()" accept="text/csv" #fileInput />
